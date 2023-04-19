@@ -1,0 +1,34 @@
+apiVersion: cloud.ibm.com/v1alpha1
+kind: BillOfMaterial
+metadata:
+  name: 350-integration-services-connection
+  labels:
+    type: software
+    platform: azure
+    code: '350'
+  annotations:
+    displayName: Integration Services Connection
+    description: Integration Services Connection
+    vpn/required: false
+spec:
+  version: v1.0.0
+  modules:
+    - name: integration-services-connection
+      alias: integration-services-connection
+      version: v1.0.0
+  variables:
+    - name: integration-services-connection_name
+      type: string
+      description: The name of the resource group
+    - name: region
+      type: string
+      description: The Azure location where the resource group will be provisioned
+    - name: subscription_id
+      type: string
+    - name: client_id
+      type: string
+    - name: client_secret
+      type: string
+      sensitive: true
+    - name: tenant_id
+      type: string

@@ -1,0 +1,34 @@
+apiVersion: cloud.ibm.com/v1alpha1
+kind: BillOfMaterial
+metadata:
+  name: 270-self-hosted-integration-runtime
+  labels:
+    type: software
+    platform: azure
+    code: '270'
+  annotations:
+    displayName: Self Hosted Integration Runtime
+    description: Self Hosted Integration Runtime
+    vpn/required: false
+spec:
+  version: v1.0.0
+  modules:
+    - name: self-hosted-integration-runtime
+      alias: self-hosted-integration-runtime
+      version: v1.0.0
+  variables:
+    - name: self-hosted-integration-runtime_name
+      type: string
+      description: The name of the resource group
+    - name: region
+      type: string
+      description: The Azure location where the resource group will be provisioned
+    - name: subscription_id
+      type: string
+    - name: client_id
+      type: string
+    - name: client_secret
+      type: string
+      sensitive: true
+    - name: tenant_id
+      type: string

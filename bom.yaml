@@ -1,0 +1,177 @@
+apiVersion: cloudnativetoolkit.dev/v2
+kind: Solution
+metadata:
+  name: Data Science Solution
+  annotations:
+    displayName: >-
+      Solution based on AKS Container Deployment, Databricks Workspace, Inbound
+      Internet Connection, Salesforce Connection, Teradata Connection, Data Hub
+      Connection, Integration Services Connection, Oracle Database Connection,
+      Self Hosted Integration Runtime on Azure.
+    description: >-
+      Solution based on AKS Container Deployment, Databricks Workspace, Inbound
+      Internet Connection, Salesforce Connection, Teradata Connection, Data Hub
+      Connection, Integration Services Connection, Oracle Database Connection,
+      Self Hosted Integration Runtime in Standard reference architecture
+      deployed on Azure with 150-azure-storage-blob as storage option.
+spec:
+  stack:
+    - name: 101-azure-vnet-std
+      layer: infrastructure
+      description: Azure base infrastructure for OpenShift standard architecture
+      version: v1.0.1
+    - name: 105-azure-aro-std
+      layer: infrastructure
+      description: Azure ARO managed OpenShift for Standard Architecture
+      version: v1.0.1
+    - name: 150-azure-storage-blob
+      layer: infrastructure
+      description: Provision a storage blob on Azure
+      version: v1.0.0
+    - name: 200-openshift-gitops
+      layer: software
+      description: >-
+        Provisions OpenShift GitOps (ArgoCD) into an existing cluster and
+        bootstraps it to a gitops repository
+      version: v1.0.1
+    - name: 270-self-hosted-integration-runtime
+      layer: software
+      description: Self Hosted Integration Runtime
+      version: v1.0.0
+    - name: 350-data-hub-connection
+      layer: software
+      description: Data Hub Connection
+      version: v1.0.0
+    - name: 350-integration-services-connection
+      layer: software
+      description: Integration Services Connection
+      version: v1.0.0
+    - name: 350-oracle-database-connection
+      layer: software
+      description: Oracle Database Connection
+      version: v1.0.0
+    - name: 350-salesforce-connection
+      layer: software
+      description: Salesforce Connection
+      version: v1.0.0
+    - name: 350-teradata-connection
+      layer: software
+      description: Teradata Connection
+      version: v1.0.0
+    - name: 380-inbound-internet-connection
+      layer: software
+      description: Inbound Internet Connection
+      version: v1.0.0
+    - name: 470-databricks-workspace
+      layer: software
+      description: Databricks Workspace
+      version: v1.0.0
+    - name: 540-aks-container-deployment
+      layer: software
+      description: AKS Container Deployment
+      version: v1.0.0
+  version: v1.0.0
+  variables:
+    - name: aks-container-deployment_name
+      type: string
+      description: The name of the resource group
+    - name: azure-storage-blob_storage_account_name
+      type: string
+      description: The name of the Azure Storage Account
+    - name: blob_resource_group_name
+      type: string
+      description: The name of the resource group
+    - name: client_id
+      type: string
+    - name: client_secret
+      type: string
+      sensitive: true
+    - name: config_banner_text
+      type: string
+      description: The text that will appear in the top banner in the cluster
+    - name: data-hub-connection_name
+      type: string
+      description: The name of the resource group
+    - name: databricks-workspace_name
+      type: string
+      description: The name of the resource group
+    - name: gitops_repo_repo
+      type: string
+      description: >-
+        The short name of the repository (i.e. the part after the org/group
+        name)
+    - name: inbound-internet-connection_name
+      type: string
+      description: The name of the resource group
+    - name: integration-services-connection_name
+      type: string
+      description: The name of the resource group
+    - name: oracle-database-connection_name
+      type: string
+      description: The name of the resource group
+    - name: region
+      type: string
+      description: The Azure location where the resource group will be provisioned
+    - name: resource_group_name
+      type: string
+      description: The name of the resource group
+    - name: salesforce-connection_name
+      type: string
+      description: The name of the resource group
+    - name: self-hosted-integration-runtime_name
+      type: string
+      description: The name of the resource group
+    - name: subscription_id
+      type: string
+    - name: tenant_id
+      type: string
+    - name: teradata-connection_name
+      type: string
+      description: The name of the resource group
+    - name: gitops_repo_host
+      type: string
+      description: >-
+        The host for the git repository. The git host used can be a GitHub,
+        GitHub Enterprise, Gitlab, Bitbucket, Gitea or Azure DevOps server. If
+        the host is null assumes in-cluster Gitea instance will be used.
+      value: ''
+    - name: gitops_repo_org
+      type: string
+      description: >-
+        The org/group where the git repository exists/will be provisioned. If
+        the value is left blank then the username org will be used.
+      value: ''
+    - name: gitops_repo_project
+      type: string
+      description: >-
+        The project that will be used for the git repo. (Primarily used for
+        Azure DevOps repos)
+      value: ''
+    - name: gitops_repo_token
+      type: string
+      description: The personal access token used to access the repository
+      value: ''
+      sensitive: true
+    - name: gitops_repo_username
+      type: string
+      description: The username of the user with access to the repository
+      value: ''
+    - name: name_prefix
+      type: string
+      description: The name of the vpc resource
+      value: ''
+    - name: pull_secret
+      type: string
+      description: >-
+        The contents of the pull secret needed to access Red Hat content. The
+        contents can either be provided directly or passed through the
+        `pull_secret_file` variable
+      value: ''
+    - name: pull_secret_file
+      type: string
+      description: >-
+        Name of the file containing the pull secret needed to access Red Hat
+        content. The contents can either be provided in this file or directly
+        via the `pull_secret` variable
+      value: ''
+  files: []
